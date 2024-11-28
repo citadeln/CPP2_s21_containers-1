@@ -1,9 +1,9 @@
 
 namespace s21{
-    template<typename IT>
+    template<typename T>
     class BaseIter{
         public:
-            using iterator_ptr = IT*;
+            using iterator_ptr = T*;
             BaseIter();
             BaseIter(iterator_ptr);
         
