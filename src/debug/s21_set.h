@@ -7,6 +7,16 @@ namespace s21 {
 
 template <typename T, typename Compare = std::less<T>>
 class set {
+ public:
+  // Внутриклассовые типы
+  using key_type = T;
+  using value_type = T;
+  using reference = value_type&;
+  using const_reference = const value_type&;
+  // using iterator =       typename set<T, Compare>::iterator;
+  // using const_iterator =   typename set<T, Compare>::iterator;
+  using size_type = std::size_t;
+
  private:
   struct Node {
     T value;
@@ -39,7 +49,7 @@ class set {
   size_t size() const { return size_; }
   void clear();
 
-  // Итератор (упрощенный для примера)
+  // Итератор (упрощённый для примера)
   class iterator {
    private:
     Node* current_;
@@ -57,4 +67,5 @@ class set {
   iterator begin() const;
   iterator end() const;
 };
-}
+
+}  // namespace s21
