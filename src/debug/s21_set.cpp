@@ -1,5 +1,7 @@
 #include "s21_set.h"
 
+#include <stdexcept>
+
 // std::less - функтор сравнения, true если a < b
 
 // std::initializer_list — это спец. класс шаблона
@@ -8,8 +10,10 @@
 // --- Реализация функций ---
 
 // Конструктор с инициализатором
+
 namespace s21 {
 
+// Конструктор через initializer_list
 template <typename T, typename Compare>
 set<T, Compare>::set(std::initializer_list<T> init) : set() {
   for (const auto& value : init) {
@@ -109,6 +113,30 @@ typename set<T, Compare>::iterator set<T, Compare>::begin() const {
 template <typename T, typename Compare>
 typename set<T, Compare>::iterator set<T, Compare>::end() const {
   return iterator(nullptr);
+}
+
+// Реализация operator++
+template <typename T, typename Compare>
+typename set<T, Compare>::iterator& set<T, Compare>::iterator::operator++() {
+  if (!node_) {
+    throw std::out_of_range("Iterator out of range");
+  }
+
+  if (node_->right) {
+    node_ = node_->right;
+    while (node_->left) {
+      node_ = node_->left;
+    }
+  } else {
+    Node* parent = node_->parent;
+    while (parent && node_ == parent->right) {
+      node_ = parent;
+      parent = parent->parent;
+    }
+    node_ = parent;
+  }
+
+  return *this;
 }
 }  // namespace s21
 // --- Пример использования ---
