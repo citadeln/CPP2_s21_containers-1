@@ -12,7 +12,7 @@ endif
 all: s21_containersplus.a
 
 s21_containersplus.a:
-	$(CC) $(FLAGS) -c *.cc
+	$(CC) $(FLAGS) -c *.cc *.h
 	ar -crs s21_containersplus.a *.o 
 # удалить ar -crs s21_containersplus.a *.o  зачем архив?
 
@@ -60,7 +60,7 @@ check:
 	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.h *.cc
 	
 clean:
-	rm -rf *.o *.a test debug/debug.out
+	rm -rf *.o *.a test debug/debug.out *.gch
 	rm -rf *.gcno *gcda *.gcov gcov *.html *.css
 	rm -rf report report.info
 	@echo;echo "Clean complete";echo;
