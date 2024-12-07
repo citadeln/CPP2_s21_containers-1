@@ -1,5 +1,9 @@
 #include"sequence_container.h"
-using namespace s21;
-// class vector : bsc{
-
-// }
+#include "base_iter.h"
+namespace s21{
+    template <typename T>
+    class Vector : public bsc{
+        private:
+        using iterator = VectorIterator<T>;
+    };
+}

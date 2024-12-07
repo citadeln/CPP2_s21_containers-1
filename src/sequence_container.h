@@ -4,15 +4,8 @@ namespace s21{
     template<typename T>
     class bsc {
         private:
-            typedef struct{
-                
-            }iterator;
-        
-            typedef struct{
-            }reverse_iterator;
-        
-            typedef struct{
-            }size_type;
+            using iterator = base_iter<T>;    
+            typedef size_t size_type;
                 
         public:
         bsc();
