@@ -4,13 +4,23 @@ namespace s21{
     template<typename T>
     class bsc {
         private:
+            typedef T value_type;
             using iterator = base_iter<T>;    
+            using const_iterator = base_iter<const T>;
+            using reference = T&;
             typedef size_t size_type;
                 
         public:
+        reference at(size_type pos);
+        reference operator[](size_type pos);
+        const_reference front();
+        const_reference back();
+        value_type* data();
+
+
         bsc();
         bsc(bsc&);
-        bsc(size_type, T & = T());
+        bsc(size_type, value_type & = value_type());
         operator=(bsc&);
         iterator begin();
         iterator end();
