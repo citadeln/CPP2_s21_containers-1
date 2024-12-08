@@ -1,19 +1,20 @@
-
+#ifndef BASE_ITER_H_
+#define BASE_ITER_H_
 namespace s21{
-    template<bool B, class T = void>
-        struct enable_if {};
-    template<class T>
-        struct enable_if<true, T> { typedef T type; };
-    template < typename A, typename B >
-    struct is_same
-    {
-        static const bool value = false;
-    };
-    template < typename A >
-    struct is_same<A, A>
-    {
-        static const bool value = true;
-    };
+    // template<bool B, class T = void>
+    //     struct enable_if {};
+    // template<class T>
+    //     struct enable_if<true, T> { typedef T type; };
+    // template < typename A, typename B >
+    // struct is_same
+    // {
+    //     static const bool value = false;
+    // };
+    // template < typename A >
+    // struct is_same<A, A>
+    // {
+    //     static const bool value = true;
+    // };
 
     template<typename T>
     class BaseIter{
@@ -47,11 +48,11 @@ namespace s21{
     // class BaseIter<T, s21::enable_if< s21::list|| s21::map || s21::set || s21::vector ||s21::array>{
     class BaseIterMiddle : public BaseIter<T>{
         public:
-        BaseIter<T> operator--(){
+        BaseIterMiddle<T> operator--(){
             this.ptr--;
             return this;
         }
-        BaseIter<T> operator--(int){
+        BaseIterMiddle<T> operator--(int){
             this.ptr--;
             return this;
         }
@@ -60,28 +61,28 @@ namespace s21{
     // class BaseIter<T, typename enable_if_t<s21::vector<T> || s21::array<T>>>{
     class BaseIterEnd : public BaseIterMiddle<T>{
         public:
-        BaseIter<T> operator+=(int n){
+        BaseIterEnd<T> operator+=(int n){
             return this;
         }
-        BaseIter<T> operator-=(int n){
+        BaseIterEnd<T> operator-=(int n){
             return this;
         }
-        BaseIter<T> operator+(int n){
+        BaseIterEnd<T> operator+(int n){
             return this;
         }
-        BaseIter<T> operator-(int n){
+        BaseIterEnd<T> operator-(int n){
             return this;
         }
-        BaseIter<T> operator<(BaseIter<T> & other){
+        BaseIterEnd<T> operator<(BaseIterEnd<T> & other){
             return this.ptr < other.ptr;
         }
-        BaseIter<T> operator<=(BaseIter<T> & other){
+        BaseIterEnd<T> operator<=(BaseIterEnd<T> & other){
             return this.ptr <= other.ptr;
         }
-        BaseIter<T> operator>(BaseIter<T> & other){
+        BaseIterEnd<T> operator>(BaseIterEnd<T> & other){
             return this.ptr > other.ptr;
         }
-        BaseIter<T> operator>=(BaseIter<T> & other){
+        BaseIterEnd<T> operator>=(BaseIterEnd<T> & other){
             return this.ptr >= other.ptr;
         }
     };
@@ -92,9 +93,11 @@ namespace s21{
     template<typename T>
     class ListIterator : public BaseIterMiddle<T>{};
     
-    template<typename T>
-    class MapIterator : public BaseIterMiddle<T>{};
+//     template<typename T>
+//     class MapIterator : public BaseIterMiddle<T>{};
 
-    template<typename T>
-    class SetIterator : public BaseIterMiddle<T>{};
+//     template<typename T>
+//     class SetIterator : public BaseIterMiddle<T>{};
+// 
 }
+#endif //BASE_ITER_H_

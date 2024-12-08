@@ -2,7 +2,7 @@
 #include "base_iter.h"
 namespace s21{
     template <typename T>
-    class Vector : public bsc{
+    class Vector : public bsc<T>{
         private:
         using iterator = VectorIterator<T>;
     };
