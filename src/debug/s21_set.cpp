@@ -1,7 +1,5 @@
 #include "s21_set.h"
 
-#include <stdexcept>
-
 // std::less - функтор сравнения, true если a < b
 
 // std::initializer_list — это спец. класс шаблона
@@ -139,14 +137,13 @@ typename set<T, Compare>::iterator& set<T, Compare>::iterator::operator++() {
   return *this;
 }
 }  // namespace s21
-// --- Пример использования ---
 
 int main() {
   s21::set<int> mySet = {5, 2, 8, 1, 3};
 
   // Вставка элементов
   mySet.insert(6);
-  mySet.insert(4);
+  mySet.insert(5);
 
   // Поиск
   std::cout << "Contains 3: " << mySet.contains(3) << "\n";
