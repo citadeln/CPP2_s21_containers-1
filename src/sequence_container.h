@@ -48,7 +48,7 @@ namespace s21{
             
         }
         bsc(const bsc& other){
-            this->data_ = new value_type[other.size_];
+            this->data_ = new value_type[other.capacity_];
             this->size_ = other.size_;
             this->capacity_ = other.capacity_;
             for (size_type i = 0; i < this->size_; i++){
@@ -56,9 +56,9 @@ namespace s21{
             }
         }
         bsc(size_type n){
-            this->data_ = new value_type[n];
+            this->data_ = new value_type[n*2];
             this->size_ = n;
-            this->capacity_ = n; 
+            this->capacity_ = n*2; 
         }
         bsc(std::initializer_list<value_type> const & items){
             this->data_ = new value_type[items.size()];
@@ -78,6 +78,16 @@ namespace s21{
             this = std::move(other);
             return *this;
         }
+        bsc& operator=(const bsc& other){
+            this->data_ = new value_type[other.capacity_];
+            this->size_ = other.size_;
+            this->capacity_ = other.capacity_;
+            for (size_type i = 0; i < this->size_; i++){
+                this->data_[i] = other.data_[i];
+            }
+            return *this;
+            
+        }
         ~bsc(){
             delete[] this->data_;
             this.data_ = nullptr;
@@ -92,20 +102,83 @@ namespace s21{
             return iterator(this->data_ + this->size_);
         }
         // Full container info
-        bool empty();
-        size_type size();
-        size_type max_size();
-        size_type capacity();
-        void shrink_to_fit();
-        void reverse();
+        bool empty(){
+            return this->size_ == 0;
+        }
+        size_type size(){
+            return this->size_;
+        }
+        size_type max_size(){
+            return this->capacity_;
+        }
+        size_type capacity(){
+            return this->capacity_;
+        }
+        void shrink_to_fit(){
+            if(this->size < this->capacity_){
+                value_type *temp = new value_type[this->size_];
+                for(size_type i = 0; i < this->size_; i++){
+                    temp[i] = this->data_[i];
+                }
+                delete[] this->data_;
+                this->data_ = temp;
+                this->capacity_ = this->size_;
+                
+            }
+        }
+        void reverse(size_type size){
+            value_type *temp = new value_type[size];
+            for(size_type i = 0; i < size; i++){
+                temp[i] = this->data_[i];
+            }
+        }
 
         // Modifiers
-        void clear();
-        iterator insert(iterator pos, const_reference value);
-        void erase(iterator pos);
-        void push_back(const_reference value);
-        void pop_back();
-        void swap(bsc& other);
+        void clear(){
+            this->size_ = 0;
+            this->capacity_ = 0;
+            delete[] this->data_;
+            this->data_ = nullptr;
+        }
+        void increase_capacity(){
+            value_type *temp = new value_type[this->capacity_*2];
+                for(size_type i = 0; i < this->size_; i++){
+                    temp[i] = this->data_[i];
+                }
+                this->data_ = temp;
+            
+        }
+        iterator insert(iterator pos, const_reference value){
+            if(this->capacity_<=this->size_){
+            increase_capacity();
+            }    
+            for(size_type i = this->size_; i > pos; i--){
+                this->data_[i] = this->data_[i-1];
+            }
+            this->data_[pos] = value;
+        }
+        void erase(iterator pos){
+            for(size_type i = pos; i < this->size_; i++){
+                this->data_[i] = this->data_[i+1];
+            }
+            this->size_--;
+
+        }
+        void push_back(const_reference value){
+            if(this->capacity_<=this->size_){
+                increase_capacity();
+            }
+            this->data_[this->size_] = value;
+        }
+        void pop_back(){
+            this->size_--;
+        }
+        void swap(bsc& other){
+            bsc temp = other;
+            other = *this;
+            *this = temp;
+            
+        }
         // JUNK ====================== 
         // TODO: DELETE 
         // bsc(size_type, value_type & = value_type());
