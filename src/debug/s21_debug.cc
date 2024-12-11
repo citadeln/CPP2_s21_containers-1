@@ -16,6 +16,9 @@ int main() {
     traits::construct(newarr+i, arr[i]);
 
 
+  template <typename U>
+  using rebind = allocator<U>
+
 }
 
 #endif
