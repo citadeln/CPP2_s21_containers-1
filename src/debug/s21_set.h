@@ -41,6 +41,7 @@ class set {
   bool insert(const T& value);
   bool contains(const T& value) const;
   size_t size() const { return size_; }
+  bool empty() const { return size() == 0; }
   void clear();
 
   class iterator {
