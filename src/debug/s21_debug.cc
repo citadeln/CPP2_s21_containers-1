@@ -1,5 +1,5 @@
 #define IFDEBUG 0
-#if IFDEBUG == 1
+#if IFDEBUG == 0
 
 #include <algorithm>
 #include <iostream>
@@ -9,6 +9,21 @@
 
 int main() {
   std::cout << "Well done!" << std::endl;
+
+
+// push back
+  for(size_t i = 0; i < 32; ++i)
+    traits::construct(newarr+i, arr[i]);
+
+
 }
 
 #endif
+/*
+template<class Key, class T>
+class Map {
+
+}
+
+map<int, T::int>
+*/

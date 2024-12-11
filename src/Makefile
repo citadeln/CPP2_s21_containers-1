@@ -60,7 +60,7 @@ check:
 	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.h *.cc
 	
 clean:
-	rm -rf *.o *.a test debug/debug.out
+	rm -rf *.o *.a test debug/debug.out *.out
 	rm -rf *.gcno *gcda *.gcov gcov *.html *.css
 	rm -rf report report.info
 	@echo;echo "Clean complete";echo;
