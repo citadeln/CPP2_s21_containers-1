@@ -1,3 +1,6 @@
+#ifndef S21_SET_H
+#define S21_SET_H
+
 #include <functional>
 #include <initializer_list>
 #include <iostream>
@@ -66,3 +69,6 @@ class set {
 };
 
 }  // namespace s21
+
+#include "s21_set.tpp"
+#endif  // S21_SET_H

@@ -7,8 +7,8 @@
 
 // #include "../tests/test.h"
 
-int main() {
+/* int main() {
   std::cout << "Well done!" << std::endl;
-}
+} */
 
 #endif

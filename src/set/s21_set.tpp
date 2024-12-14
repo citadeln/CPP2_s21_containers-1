@@ -136,9 +136,10 @@ typename set<T, Compare>::iterator& set<T, Compare>::iterator::operator++() {
 
   return *this;
 }
+
 }  // namespace s21
 
-int main() {
+/* int main() {
   s21::set<int> mySet = {5, 2, 8, 1, 3};
 
   // Вставка элементов
@@ -156,4 +157,4 @@ int main() {
   std::cout << "\n";
 
   return 0;
-}
+} */
