@@ -74,3 +74,24 @@ TEST_F(SetInsertTest, Test9_clear) {
   mySet.clear();
   EXPECT_EQ(mySet.size(), 0);
 }
+
+TEST_F(SetInsertTest, Test10_empty) {
+  s21::set<int> mySet = {1, 2, 3};
+  EXPECT_FALSE(mySet.empty());
+}
+
+TEST_F(SetInsertTest, Test11_empty) {
+  s21::set<int> mySet = {1, 2, 3};
+  mySet.clear();
+  EXPECT_TRUE(mySet.empty());
+}
+
+TEST_F(SetInsertTest, Test12_PositiveMaxSize) {
+  s21::set<int> my_set;
+  EXPECT_GT(my_set.max_size(), 0);
+}
+
+TEST_F(SetInsertTest, Test13_MaxSizeGreaterThanSize) {
+  s21::set<int> my_set = {1, 2, 3, 4, 5};
+  EXPECT_GT(my_set.max_size(), my_set.size());
+}
