@@ -52,3 +52,25 @@ TEST_F(SetInsertTest, Test6_Contains_false) {
   s21::set<int> mySet = {1, 2, 3, 4, 5};
   EXPECT_FALSE(mySet.contains(6));
 }
+
+TEST_F(SetInsertTest, Test7_begin_end) {
+  s21::set<int> mySet = {1};
+  for (auto it = mySet.begin(); it != mySet.end(); ++it) {
+    EXPECT_EQ(*it, 1);
+  }
+}
+
+TEST_F(SetInsertTest, Test8_begin_end) {
+  s21::set<int> mySet = {1, 2, 3};
+  int temp = 0;
+  for (auto it = mySet.begin(); it != mySet.end(); ++it) {
+    temp = *it;
+  }
+  EXPECT_EQ(temp, 3);
+}
+
+TEST_F(SetInsertTest, Test9_clear) {
+  s21::set<int> mySet = {1, 2, 3};
+  mySet.clear();
+  EXPECT_EQ(mySet.size(), 0);
+}
