@@ -4,6 +4,7 @@
 #include <functional>
 #include <initializer_list>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 
 namespace s21 {
@@ -35,17 +36,22 @@ class set {
   Node* insertNode(Node* node, const T& value);
   void clearNode(Node* node);
   Node* findNode(Node* node, const T& value) const;
+  Node* eraseNode(Node* root, const T& value);
+  Node* findMin(Node* node) const;
 
  public:
   set() : root_(nullptr), size_(0), comp_(Compare()) {}
   set(std::initializer_list<T> init);
   ~set();
+  set& operator=(set&& s) noexcept;
 
   bool insert(const T& value);
   bool contains(const T& value) const;
   size_t size() const { return size_; }
   bool empty() const { return size() == 0; }
   void clear();
+  size_type max_size() const;
+  void erase(typename set<T, Compare>::iterator pos);
 
   class iterator {
    private:
