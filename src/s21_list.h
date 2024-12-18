@@ -22,7 +22,7 @@ class list {
     value_type value_;
     node *next;
     node *prev;
-    node(int value) : value_(value), next(nullptr), prev(nullptr) {}
+    node(value_type value) : value_(value), next(nullptr), prev(nullptr) {}
   };
 
  public:
