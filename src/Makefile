@@ -9,15 +9,15 @@ else
 FLAGS= -lm -lgtest -g
 endif
 
-all: s21_containersplus.a
+all: test
 
-s21_containersplus.a:
-	$(CC) $(FLAGS) -c *.cc
-	ar -crs s21_containersplus.a *.o 
+# s21_containersplus.a:
+# 	$(CC) $(FLAGS) -c *.cc
+# 	ar -crs s21_containersplus.a *.o 
 # удалить ar -crs s21_containersplus.a *.o  зачем архив?
 
-test: clean s21_containersplus.a
-	$(CC) tests/test.cc s21_containersplus.a $(FLAGS) -o test
+test: clean
+	$(CC) tests/test.cc $(FLAGS) -o test
 	./test
 
 # gcov_report:
