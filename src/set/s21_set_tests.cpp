@@ -95,3 +95,16 @@ TEST_F(SetInsertTest, Test13_MaxSizeGreaterThanSize) {
   s21::set<int> my_set = {1, 2, 3, 4, 5};
   EXPECT_GT(my_set.max_size(), my_set.size());
 }
+
+TEST_F(SetInsertTest, Test14_EraseExistingElement) {
+  s21::set<int> s;
+  s.insert(10);
+  s.insert(20);
+  s.insert(30);
+
+  auto it = s.begin();
+
+  s.erase(it);
+
+  EXPECT_EQ(s.size(), 2);
+}

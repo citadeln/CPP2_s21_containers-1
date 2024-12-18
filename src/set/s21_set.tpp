@@ -223,7 +223,7 @@ typename set<T, Compare>::Node* set<T, Compare>::findMin(Node* node) const {
 
 }  // namespace s21
 
-int main() {
+/* int main() {
   s21::set<int> mySet = {5, 2, 8, 1, 3};
   s21::set<int> set2;
   set2 = std::move(mySet);
@@ -247,4 +247,4 @@ int main() {
   std::cout << "\n";
 
   return 0;
-}
+} */

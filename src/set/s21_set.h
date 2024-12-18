@@ -54,11 +54,14 @@ class set {
   void erase(typename set<T, Compare>::iterator pos);
 
   class iterator {
+    friend class set;
+
    private:
     Node* node_;
 
    public:
     explicit iterator(Node* node = nullptr) : node_(node) {}
+    Node* getNode() const { return node_; }  // Метод для доступа к node_
 
     const T& operator*() const { return node_->value; }
     iterator& operator++();
