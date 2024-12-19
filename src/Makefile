@@ -29,8 +29,7 @@ gcov_report:
 	@xdg-open ./gcov_report.html
 
 debug: clean
-	$(MAKE) s21_containersplus.a >/dev/null
-	$(CC) $(FLAGS) debug/*.cc -L. -l:s21_containersplus.a -o debug/debug.out -lstdc++ -lgtest -lgtest_main
+	$(CC) $(FLAGS) debug/*.cc -o debug/debug.out
 	echo;debug/debug.out;echo;
 
 valgrind: clean
