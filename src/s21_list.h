@@ -62,40 +62,44 @@ class list {
     bool operator==(const ListIterator &other) const;
   };
 
-  list();
-  list(size_type n);
-  list(const std::initializer_list<value_type> &items);
-  list(const list &other);
-  list(list &&other);
+  list(); // default constructor, creates empty list
+  list(size_type n); // parameterized constructor, creates the list of size n
+  list(const std::initializer_list<value_type> &items); // initializer list constructor, creates list initizialized using std::initializer_list
+  list(const list &other); // copy constructor
+  list(list &&other); // move constructor
   ~list();
 
   list<value_type> &operator=(list &other);
-  list<value_type> &operator=(list &&other);
+  list<value_type> &operator=(list &&other); // assignment operator overload for moving object
   bool operator==(const list &other) const;
 
-  const_reference front() const;
-  const_reference back() const;
+  // List Element access
+  const_reference front() const; // access the first element
+  const_reference back() const; // access the last element
 
+  // List Iterators
   iterator begin() noexcept;
   iterator end() noexcept;
 
-  bool empty() const noexcept;
-  size_type size() const noexcept;
-  size_type max_size() const noexcept;
+  // List Capacity
+  bool empty() const noexcept; // checks whether the container is empty
+  size_type size() const noexcept; // returns the number of elements
+  size_type max_size() const noexcept; // returns the maximum possible number of elements
 
-  void clear() noexcept;
-  iterator insert(iterator pos, const_reference value);
-  void erase(iterator pos);
-  void push_back(const_reference value);
-  void pop_back();
-  void push_front(const_reference value);
-  void pop_front();
-  void swap(list &other);
-  void merge(list &other);
-  void splice(const_iterator pos, list &other);
-  void reverse();
-  void unique();
-  void sort();
+  // List Modifiers
+  void clear() noexcept; // clears the contents
+  iterator insert(iterator pos, const_reference value); // inserts element into concrete pos and returns the iterator that points to the new element
+  void erase(iterator pos); // erases element at pos
+  void push_back(const_reference value); // adds an element to the end
+  void pop_back(); // removes the last element
+  void push_front(const_reference value); // adds an element to the head
+  void pop_front(); // removes the first element
+  void swap(list& other); // swaps the contents
+  void merge(list& other); // merges two sorted lists
+  void splice(const_iterator pos, list& other); // transfers elements from list other starting from pos
+  void reverse(); // reverses the order of the elements
+  void unique(); // removes consecutive duplicate elements
+  void sort(); // sorts the elements
 
   template <class... Args>
   iterator insert_many(const_iterator pos, Args &&...args);
