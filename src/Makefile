@@ -42,7 +42,7 @@ style:
 	cp ../materials/linters/.clang-format .
 	clang-format -n *.cc *.h
 	clang-format -i *.cc *.h
-	rm .clang-format
+	rm -rf .clang-format
 
 check:
 	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.h *.cc
