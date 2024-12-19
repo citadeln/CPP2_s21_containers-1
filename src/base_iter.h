@@ -135,6 +135,17 @@ namespace s21{
                 this->ptr = ptr_;
             };
     };
+    template<typename T>
+    class ArrayIterator : public BaseIterEnd<T, ArrayIterator>{
+        public:
+        using iterator_ptr = T*;
+        ArrayIterator(){
+            // init(this->ptr);
+        };
+        ArrayIterator(iterator_ptr ptr_){
+                this->ptr = ptr_;
+            };
+    };
     
     // class BaseIter<T, s21::enable_if< s21::list|| s21::map || s21::set || s21::vector ||s21::array>{
     // template<typename T>

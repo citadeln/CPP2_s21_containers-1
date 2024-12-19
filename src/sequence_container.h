@@ -81,11 +81,11 @@ namespace s21{
             this->capacity_ = 0;
         }
         // Iterator funcs
-        iterator begin(){
+        virtual iterator begin(){
             return this->data_;
         }
-        iterator end(){
-            return iterator(this->data_ + this->size_);
+        virtual iterator end(){
+            return this->data_ + this->size_;
         }
         // Full container info
         bool empty(){
@@ -102,25 +102,7 @@ namespace s21{
             return this->capacity_;
         }
         // vector
-        void shrink_to_fit(){
-            if(this->size_ < this->capacity_){
-                value_type *temp = new value_type[this->size_];
-                for(size_type i = 0; i < this->size_; i++){
-                    temp[i] = this->data_[i];
-                }
-                delete[] this->data_;
-                this->data_ = temp;
-                this->capacity_ = this->size_;
-                
-            }
-        }
-        // vector
-        void reverse(size_type size){
-            value_type *temp = new value_type[size];
-            for(size_type i = 0; i < size; i++){
-                temp[i] = this->data_[i];
-            }
-        }
+        
 
         // Modifiers
         void clear(){
@@ -129,48 +111,8 @@ namespace s21{
             this->data_ = nullptr;
         }
         // vector
-        void increase_capacity(){
-            value_type *temp = new value_type[this->capacity_*2];
-                for(size_type i = 0; i < this->size_; i++){
-                    temp[i] = this->data_[i];
-                }
-                this->data_ = temp;
-                this->capacity_ *= 2;
-            
-        }
+       
         // vector
-        iterator insert(iterator pos, const_reference value){
-            size_type posn = pos - this->begin();
-            if(posn>this->size())
-            throw std::out_of_range("Out of range");
-            if(this->capacity_<=this->size_){
-            increase_capacity();
-            }    
-            for(size_type i = this->size(); i > posn; i--){
-                this->data_[i] = this->data_[i-1];
-            }
-            this->data_[posn] = value;
-            this->size_++;
-            return pos;
-        }
-        void erase(iterator pos){
-            for(size_type i = pos - this->begin(); i < this->size(); i++){
-                this->data_[i] = this->data_[i+1];
-            }
-            this->size_--;
-
-        }
-        // vector
-        void push_back(const_reference value){
-            if(this->capacity_<=this->size_){
-                increase_capacity();
-            }
-            this->data_[this->size_] = value;
-            this->size_++;
-        }
-        void pop_back(){
-            this->size_--;
-        }
         
         // JUNK ====================== 
         // TODO: DELETE 
