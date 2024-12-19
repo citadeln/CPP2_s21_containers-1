@@ -1,5 +1,4 @@
-CC = g++ -std=c++17
-#CC = gcc -Wall -Werror -Wextra -std=c++17
+CC = g++ -std=c++17 -Wall -Werror -Wextra -std=c++17
 # FLAGS = -lgtest -lm -lsubunit -lstdc++ -ftest-coverage -fprofile-arcs
 
 OS = $(shell uname)
@@ -14,7 +13,7 @@ all: test
 # s21_containersplus.a:
 # 	$(CC) $(FLAGS) -c *.cc
 # 	ar -crs s21_containersplus.a *.o 
-# удалить ar -crs s21_containersplus.a *.o  зачем архив?
+# удалить ar -crs s21_containersplus.a *.o  # архив
 
 test: clean
 	$(CC) tests/test.cc $(FLAGS) -o test
