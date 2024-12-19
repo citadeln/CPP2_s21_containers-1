@@ -1,5 +1,4 @@
-CC = g++ -std=c++17
-#CC = gcc -Wall -Werror -Wextra -std=c++17
+CC = g++ -std=c++17 -Wall -Werror -Wextra -std=c++17
 # FLAGS = -lgtest -lm -lsubunit -lstdc++ -ftest-coverage -fprofile-arcs
 
 OS = $(shell uname)
