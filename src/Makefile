@@ -1,12 +1,14 @@
-CC = g++ -std=c++17 -Wall -Werror -Wextra -std=c++17
+CC = g++ -std=c++17 
 # FLAGS = -lgtest -lm -lsubunit -lstdc++ -ftest-coverage -fprofile-arcs
 
 OS = $(shell uname)
 ifeq ($(OS), Linux)
-FLAGS=`pkg-config --cflags --libs gtest` -lm -g
+GTESTFLAGS=`pkg-config --cflags --libs gtest` -lm -g
 else
-FLAGS= -lm -lgtest -g
+GTESTFLAGS= -lm -lgtest -g
 endif
+
+FLAGS = -Wall -Werror -Wextra $(GTESTFLAGS)
 
 all: test
 
@@ -16,7 +18,7 @@ all: test
 # удалить ar -crs s21_containersplus.a *.o  # архив
 
 test: clean
-	$(CC) tests/test.cc $(FLAGS) -o test
+	$(CC) tests/*.cc $(FLAGS) -o test
 	./test
 
 gcov_report:
@@ -32,7 +34,7 @@ debug: clean
 	echo;debug/debug.out;echo;
 
 valgrind: clean
-	$(CC) tests/test.cc $(FLAGS) -o test
+	$(CC) tests/*.cc $(FLAGS) -o test
 	valgrind  --tool=memcheck --track-fds=yes --trace-children=yes --track-origins=yes --leak-check=full --show-leak-kinds=all -s ./test
 # valgrind  --tool=memcheck --leak-check=yes ./test
 
