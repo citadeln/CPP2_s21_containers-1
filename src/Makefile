@@ -13,7 +13,7 @@ all: test
 # s21_containersplus.a:
 # 	$(CC) $(FLAGS) -c *.cc
 # 	ar -crs s21_containersplus.a *.o 
-# удалить ar -crs s21_containersplus.a *.o  зачем архив?
+# удалить ar -crs s21_containersplus.a *.o  # архив
 
 test: clean
 	$(CC) tests/test.cc $(FLAGS) -o test
