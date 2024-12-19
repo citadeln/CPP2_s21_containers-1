@@ -4,7 +4,8 @@ CC = g++ -std=c++17
 
 OS = $(shell uname)
 ifeq ($(OS), Linux)
-FLAGS=`pkg-config --cflags --libs gtest` -lm -g
+# FLAGS=`pkg-config --cflags --libs gtest` -lm -g
+FLAGS = -lm -lgtest -lgtest_main -g
 else
 FLAGS= -lm -lgtest -g
 endif
@@ -17,7 +18,7 @@ s21_containersplus.a:
 # удалить ar -crs s21_containersplus.a *.o  зачем архив?
 
 test: clean s21_containersplus.a
-	$(CC) tests/test.cc s21_containersplus.a $(FLAGS) -o test
+	$(CC) tests/*.cc s21_containersplus.a $(FLAGS) -o test
 	./test
 
 # gcov_report:
