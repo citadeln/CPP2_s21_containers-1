@@ -1,12 +1,14 @@
-CC = g++ -std=c++17 -Wall -Werror -Wextra -std=c++17
+CC = g++ -std=c++17 
 # FLAGS = -lgtest -lm -lsubunit -lstdc++ -ftest-coverage -fprofile-arcs
 
 OS = $(shell uname)
 ifeq ($(OS), Linux)
-FLAGS=`pkg-config --cflags --libs gtest` -lm -g
+GTESTFLAGS=`pkg-config --cflags --libs gtest` -lm -g
 else
-FLAGS= -lm -lgtest -g
+GTESTFLAGS= -lm -lgtest -g
 endif
+
+FLAGS = -Wall -Werror -Wextra $(GTESTFLAGS)
 
 all: test
 
