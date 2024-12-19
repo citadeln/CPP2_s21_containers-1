@@ -1,5 +1,5 @@
 #define IFDEBUG 0
-#if IFDEBUG == 0
+#if IFDEBUG == 1
 
 #include <algorithm>
 #include <iostream>
