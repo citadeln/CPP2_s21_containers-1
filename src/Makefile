@@ -18,7 +18,7 @@ all: test
 # удалить ar -crs s21_containersplus.a *.o  # архив
 
 test: clean
-	$(CC) tests/test.cc $(FLAGS) -o test
+	$(CC) tests/*.cc $(FLAGS) -o test
 	./test
 
 gcov_report:
@@ -34,7 +34,7 @@ debug: clean
 	echo;debug/debug.out;echo;
 
 valgrind: clean
-	$(CC) tests/test.cc $(FLAGS) -o test
+	$(CC) tests/*.cc $(FLAGS) -o test
 	valgrind  --tool=memcheck --track-fds=yes --trace-children=yes --track-origins=yes --leak-check=full --show-leak-kinds=all -s ./test
 # valgrind  --tool=memcheck --leak-check=yes ./test
 
