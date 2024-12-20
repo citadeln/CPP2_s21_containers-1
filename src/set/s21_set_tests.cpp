@@ -108,3 +108,47 @@ TEST_F(SetInsertTest, Test14_EraseExistingElement) {
 
   EXPECT_EQ(s.size(), 2);
 }
+
+TEST_F(SetInsertTest, Test15_swap) {
+  s21::set<int> s1;
+  s1.insert(10);
+  s1.insert(20);
+  s1.insert(30);
+
+  s21::set<int> s2;
+  s2.insert(1);
+  s2.insert(2);
+
+  EXPECT_EQ(s1.size(), 3);
+  EXPECT_EQ(s2.size(), 2);
+
+  s1.swap(s2);
+
+  EXPECT_EQ(s1.size(), 2);
+  EXPECT_EQ(s2.size(), 3);
+
+  auto it = s1.begin();
+  EXPECT_EQ(*it, 1);
+  ++it;
+  EXPECT_EQ(*it, 2);
+}
+
+TEST_F(SetInsertTest, Test16_merge) {
+  s21::set<int> s1;
+  s1.insert(1);
+  s1.insert(2);
+  s1.insert(3);
+
+  s21::set<int> s2;
+  s2.insert(4);
+  s2.insert(5);
+  EXPECT_EQ(s1.size(), 3);
+
+  s1.merge(s2);
+  int temp = 1;
+
+  for (auto it = s1.begin(); it != s1.end(); ++it, temp++) {
+    EXPECT_EQ(*it, temp);
+  }
+  EXPECT_EQ(s1.size(), 5);
+}

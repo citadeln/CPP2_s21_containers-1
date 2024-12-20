@@ -52,6 +52,8 @@ class set {
   void clear();
   size_type max_size() const;
   void erase(typename set<T, Compare>::iterator pos);
+  void swap(set& other);
+  void merge(set& other);
 
   class iterator {
     friend class set;

@@ -221,30 +221,48 @@ typename set<T, Compare>::Node* set<T, Compare>::findMin(Node* node) const {
   return node;
 }
 
+template <typename T, typename Compare>
+void s21::set<T, Compare>::swap(set& other) {
+  std::swap(root_, other.root_);
+
+  std::swap(size_, other.size_);
+
+  std::swap(comp_, other.comp_);
+}
+
+template <typename T, typename Compare>
+void s21::set<T, Compare>::merge(set& other) {
+  if (this == &other) {
+    return;
+  }
+
+  for (auto it = other.begin(); it != other.end(); ++it) {
+    insert(*it);
+  }
+
+  other.clear();
+}
+
 }  // namespace s21
 
-/* int main() {
-  s21::set<int> mySet = {5, 2, 8, 1, 3};
+/*  int main() {
+   s21::set<int> set1;
+  set1.insert(10);
+  set1.insert(20);
+
   s21::set<int> set2;
-  set2 = std::move(mySet);
+  set2.insert(30);
+  set2.insert(40);
 
-  // Вставка элементов
-  mySet.insert(6);
-  mySet.insert(5);
-  mySet.insert(15);
+  std::cout << "Before swap:" << std::endl;
+  std::cout << "Set1 size: " << set1.size() << std::endl;
+  std::cout << "Set2 size: " << set2.size() << std::endl;
 
-  std::cout << "MAX size " << mySet.max_size() << std::endl;
+  set1.swap(set2);
 
-  // Поиск
-  std::cout << "Contains 3: " << mySet.contains(3) << "\n";
-  std::cout << "Contains 10: " << mySet.contains(10) << "\n";
-  std::cout << "Contains 2: " << set2.contains(2) << "\n";
-
-  // Итерация
-  for (auto it = mySet.begin(); it != mySet.end(); ++it) {
-    std::cout << *it << " ";
-  }
-  std::cout << "\n";
+  std::cout << "After swap:" << std::endl;
+  std::cout << "Set1 size: " << set1.size() << std::endl;
+  std::cout << "Set2 size: " << set2.size() << std::endl;
 
   return 0;
-} */
+}  */
