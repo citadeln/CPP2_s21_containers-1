@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+src/.vscode/c_cpp_properties.json
+src/.vscode/launch.json
+src/.vscode/settings.json
+src/debug/s21_set
+src/.vscode/tasks.json
+src/set/run_tests
+src/set/s21_set
