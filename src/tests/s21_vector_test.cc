@@ -151,3 +151,16 @@ TEST(t_vector, t_iterator_3) {
     EXPECT_TRUE(it_end > it);
 
 }
+TEST(t_vector, t_reverse) {
+    vector<int> v  {1,2,3,4,5};
+    v.reverse(5);
+    EXPECT_EQ(v[0], 5);
+    EXPECT_EQ(v[1], 4);
+    EXPECT_EQ(v[2], 3);
+    EXPECT_EQ(v[3], 2);
+    EXPECT_EQ(v.front(),5);
+    EXPECT_EQ(v.back(),1);
+    v.reverse(4);
+    EXPECT_EQ(v.front(),2);
+    EXPECT_EQ(v.back(),1);
+}

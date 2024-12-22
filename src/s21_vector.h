@@ -60,12 +60,19 @@ namespace s21{
             return *this;
             
         }
-
+        bool operator==(const vector& other)const{
+            bool status = bsc<T, VectorIterator>::operator==(other) && this->size_==other.size_ && this->capacity_==other.capacity_;
+            return status && this->capacity_==other.capacity_;
+        }
+        bool operator!=(const vector& other)const{
+            return !(*this == other);
+        }
         void swap(vector& other){
+            if(*this!= other){
             vector temp(std::move(*this));
             *this = std::move(other);
             other = std::move(temp);
-
+            }
             
         }
          void increase_capacity(){
@@ -93,7 +100,10 @@ namespace s21{
         void reverse(size_type size){
             value_type *temp = new value_type[size];
             for(size_type i = 0; i < size; i++){
-                temp[i] = this->data_[i];
+                temp[i] = this->data_[size -1 - i];
+            }
+            for(size_type i = 0; i < size; i++){
+                this->data_[i] = temp[i];
             }
         }
 
@@ -129,7 +139,16 @@ namespace s21{
         void pop_back(){
             this->size_--;
         }
+        size_type capacity(){
+            return this->capacity_;
+        }
         
+
+        void clear(){
+            this->size_ = 0;
+            this->capacity_ = 0;
+            this->data_ = nullptr;
+        }
     };
 }
 #endif // VECTOR_H_

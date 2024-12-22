@@ -19,9 +19,9 @@ namespace s21{
         using const_reference = const T&;
         typedef size_t size_type;
         protected:
-            value_type *data_;
-            size_type size_;
-            size_type capacity_;
+            value_type *data_ = nullptr;
+            size_type size_ = 0;
+            size_type capacity_ = 0;
                 
         public:
         // Access funcs
@@ -97,19 +97,23 @@ namespace s21{
         size_type max_size(){
             return this->capacity_;
         }
-        // vector
-        size_type capacity(){
-            return this->capacity_;
+        bool operator==(const bsc& other) const{
+            bool status = true;
+            status = this->size_ == other.size_;
+            if (status){
+                for(size_type i = 0; i < this->size_ && status; i++){
+                    if(this->data_[i]!=other.data_[i]){
+                        status = false;
+                    }
+                }
+            }
+            return status;
+        }
+        bool operator!=(const bsc& other) const{
+            return !(*this == other);
         }
         // vector
-        
 
-        // Modifiers
-        void clear(){
-            this->size_ = 0;
-            this->capacity_ = 0;
-            this->data_ = nullptr;
-        }
         // vector
        
         // vector
