@@ -50,6 +50,12 @@ namespace s21{
             virtual bool operator!=(childIter<T> &other){
                 return this->ptr != other.ptr;
             }
+            virtual bool operator==(const childIter<T> &other) noexcept{
+                return this->ptr == other.ptr;
+            }
+            virtual bool operator!=(const childIter<T> &other){
+                return this->ptr != other.ptr;
+            }
             virtual reference operator*(){
                 
                 return *this->ptr;
@@ -98,6 +104,7 @@ namespace s21{
             this->ptr += n;
             return this->ptr;
         }
+
         // OK
         friend childIter<T> operator+(int n, childIter<T> thiss){
              thiss.ptr += n;
@@ -108,7 +115,7 @@ namespace s21{
             return this->ptr;
         }
         friend size_type operator-(childIter<T> n, childIter<T> thiss){
-            return int(n.ptr - thiss.ptr);
+            return size_type(n.ptr - thiss.ptr);
         }
         bool  operator<(childIter<T> & other){
             return this->ptr < other.ptr;

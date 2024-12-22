@@ -17,6 +17,7 @@ class array : public bsc<T, ArrayIterator>{
          array(){
             this->data_ = new value_type[0];
             
+            
         }
         array(const array& other){
             this->data_ = new value_type[other.size_];
@@ -45,7 +46,7 @@ class array : public bsc<T, ArrayIterator>{
             other.data_ = nullptr;
         }
          array& operator=(const array& other){
-            if(!this->data_)delete [] this->data_;
+            if(this->data_)delete [] this->data_;
             this->data_ = new value_type[other.size_];
             this->size_ = other.size_;
             for (size_type i = 0; i < this->size_; i++){
@@ -59,7 +60,7 @@ class array : public bsc<T, ArrayIterator>{
         }
         void swap(array& other){
             if(*this!= other){
-            array temp(std::move(*this));
+            array temp = std::move(*this);
             *this = std::move(other);
             other = std::move(temp);
             }
@@ -71,6 +72,7 @@ class array : public bsc<T, ArrayIterator>{
             }
     
         }
+        ~array(){}
         
 };
 }

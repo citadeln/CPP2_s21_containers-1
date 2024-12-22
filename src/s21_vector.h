@@ -38,19 +38,18 @@ namespace s21{
             this->data_ = new value_type[items.size()];
             this->size_ = items.size();
             this->capacity_ = items.size();
-            // for(size_type i = 0; i < this->size_; i++){
-            //     this->data_[i] = items[i];
-            // }
             std::copy(items.begin(), items.end(), this->data_);
         }
         vector(vector && other){
             this->data_ = other.data_;
             this->size_ = other.size_;
             this->capacity_ = other.capacity_;
-            other.clear();
+            other.size_ = 0;
+            other.capacity_ = 0;
+            other.data_ = nullptr;
         }
          vector& operator=(const vector& other){
-            if(!this->data_)delete [] this->data_;
+            if(this->data_)delete [] this->data_;
             this->data_ = new value_type[other.capacity_];
             this->size_ = other.size_;
             this->capacity_ = other.capacity_;
@@ -80,8 +79,10 @@ namespace s21{
                 for(size_type i = 0; i < this->size_; i++){
                     temp[i] = this->data_[i];
                 }
+                delete[] this->data_;
                 this->data_ = temp;
                 this->capacity_ *= 2;
+                temp = nullptr;
             
         }
         void shrink_to_fit(){
@@ -105,6 +106,7 @@ namespace s21{
             for(size_type i = 0; i < size; i++){
                 this->data_[i] = temp[i];
             }
+            delete[] temp;
         }
 
         iterator insert(iterator pos, const_reference value){
@@ -122,7 +124,8 @@ namespace s21{
             return pos;
         }
         void erase(iterator pos){
-            for(size_type i = pos - this->begin(); i < this->size(); i++){
+            size_type quant = this->end() - pos;
+            for(size_type i = this->size()-quant; i < this->size()-1; i++ ){
                 this->data_[i] = this->data_[i+1];
             }
             this->size_--;
@@ -147,6 +150,7 @@ namespace s21{
         void clear(){
             this->size_ = 0;
             this->capacity_ = 0;
+            delete[] this->data_;
             this->data_ = nullptr;
         }
     };

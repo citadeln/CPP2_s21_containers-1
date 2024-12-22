@@ -85,6 +85,13 @@ TEST(t_vector, funcs_7) {
     EXPECT_EQ(v.at(2), 43);
 
 }
+TEST(t_vector, funcs_7_1) {
+    vector<int> v {1,2,3,4,5,6};
+    v.insert(v.begin()+2,43);
+
+    EXPECT_EQ(v.at(2), 43);
+
+}
 TEST(t_vector, funcs_8) {
     vector<int> v {1,2,3,4,5,6};
     v.erase(v.begin()+2);
@@ -163,4 +170,8 @@ TEST(t_vector, t_reverse) {
     v.reverse(4);
     EXPECT_EQ(v.front(),2);
     EXPECT_EQ(v.back(),1);
+}
+TEST(t_vector, t_assign) {
+    vector<int> v  {1,2,3,4,5,234,234,234};
+    EXPECT_EQ(v.at(6), 234);
 }
