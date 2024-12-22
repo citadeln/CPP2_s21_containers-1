@@ -1,4 +1,4 @@
-#define IFDEBUG 1
+#define IFDEBUG 0
 #if IFDEBUG == 1
 
 #include <algorithm>
