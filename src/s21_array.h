@@ -1,3 +1,5 @@
+#ifndef S21_ARRAY_H_
+#define S21_ARRAY_H_
 #include "sequence_container.h"
 #include "base_iter.h"
 namespace s21{
@@ -38,7 +40,9 @@ class array : public bsc<T, ArrayIterator>{
         array(array && other){
             this->data_ = other.data_;
             this->size_ = other.size_;
-            other.clear();
+            other.size_ = 0;
+            other.capacity_ = 0;
+            other.data_ = nullptr;
         }
          array& operator=(const array& other){
             if(!this->data_)delete [] this->data_;
@@ -70,3 +74,4 @@ class array : public bsc<T, ArrayIterator>{
         
 };
 }
+#endif // S21_ARRAY_H_
