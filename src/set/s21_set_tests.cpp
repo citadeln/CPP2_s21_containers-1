@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "s21_set.h"  // Предполагается, что ваш класс находится в этом файле
+#include "s21_set.h"
 
 class SetInsertTest : public ::testing::Test {
  protected:

@@ -3,3 +3,4 @@ test: clean
 	./run_tests
 clean:
 	rm -f run_tests 
+	rm -f s21_set
