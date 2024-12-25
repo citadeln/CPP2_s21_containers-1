@@ -39,8 +39,8 @@ val: clean
 
 style:
 	cp ../materials/linters/.clang-format .
-	clang-format -n tests/*.cc debug/*.cc *.h
-	clang-format -i tests/*.cc debug/*.cc *.h
+	find . \( -name '*.cc' -o -name '*.h' \) -exec clang-format -n {} \;
+	find . \( -name '*.cc' -o -name '*.h' \) -exec clang-format -i {} \;
 	rm -rf .clang-format
 
 check:
