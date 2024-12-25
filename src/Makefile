@@ -32,15 +32,15 @@ debug: clean
 	$(CC) $(FLAGS) debug/*.cc -o debug/debug.out
 	echo;debug/debug.out;echo;
 
-valgrind: clean
+val: clean
 	$(CC) tests/*.cc $(FLAGS) -o test
 	valgrind  --tool=memcheck --track-fds=yes --trace-children=yes --track-origins=yes --leak-check=full --show-leak-kinds=all -s ./test
 # valgrind  --tool=memcheck --leak-check=yes ./test
 
 style:
 	cp ../materials/linters/.clang-format .
-	clang-format -n *.cc *.h
-	clang-format -i *.cc *.h
+	clang-format -n tests/*.cc debug/*.cc *.h
+	clang-format -i tests/*.cc debug/*.cc *.h
 	rm -rf .clang-format
 
 check:
