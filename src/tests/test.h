@@ -1,8 +1,7 @@
-#ifndef TEST_MAIN_H
-#define TEST_MAIN_H
+#ifndef S21_TESTS_H_
+#define S21_TESTS_H_
 
 #include <gtest/gtest.h>
-
 #include "../s21_containers.h"
 
-#endif  // TEST_MAIN_H
+#endif // S21_TESTS_H_
