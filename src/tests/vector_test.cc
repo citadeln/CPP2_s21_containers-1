@@ -1,5 +1,4 @@
 #include "../s21_vector.h"
-
 #include "test.h"
 using namespace s21;
 TEST(t_vector, constructors_1) {

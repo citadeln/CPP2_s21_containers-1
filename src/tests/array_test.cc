@@ -1,5 +1,4 @@
 #include "../s21_array.h"
-
 #include "test.h"
 using namespace s21;
 TEST(t_array, constructors_1) {

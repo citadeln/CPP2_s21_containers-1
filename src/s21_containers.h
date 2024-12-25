@@ -8,4 +8,5 @@
 // #include "s21_map.h"
 #include "base_iter.h"
 #include "s21_array.h"
+#include "s21_set.h"
 #endif  // S21_CONTAINERS_H_
