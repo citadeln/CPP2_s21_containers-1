@@ -6,6 +6,6 @@
 // #include "s21_stack.h"
 // #include "s21_queue.h"
 // #include "s21_map.h"
-#include "base_iter.h"
 #include "s21_array.h"
+#include "base_iter.h"
 #endif  // S21_CONTAINERS_H_
