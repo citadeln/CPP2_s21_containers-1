@@ -1,130 +1,99 @@
 # s21_containers
 
-Implementation of the s21_containers.h. library.
-
-The russian version of the task can be found in the repository.
-
-
-💡 [Tap here](https://new.oprosso.net/p/4cb31ec3f47a4596bc758ea1861fb624) **to leave your feedback on the project**. It's anonymous and will help our team make your educational experience better. We recommend completing the survey immediately after the project.
+Реализация библиотеки s21_containers.h.
 
 ## Contents
 
 1. [Chapter I](#chapter-i) \
-   1.1. [Introduction](#introduction)
+    1.1. [Introduction](#introduction)
 2. [Chapter II](#chapter-ii) \
-   2.1. [Information](#information)
-3. [Chapter III](#chapter-iii) \
-   3.1. [Part 1](#part-1-implementation-of-the-s21_containersh-library)  
-   3.2. [Part 2](#part-2-bonus-implementation-of-the-s21_containersplush-library)  
-   3.3. [Part 3](#part-3-bonus-implementation-of-the-insert_many-method)
+    2.1. [Information](#information)
+3. [Chapter III Task](#chapter-iii) \
+    3.1. [Part 1](#part-1-реализация-библиотеки-s21_containersh)  
+    3.2. [Part 2](#part-2-дополнительно-реализация-библиотеки-s21_containersplush)  
+    3.3. [Part 3](#part-3-дополнительно-реализация-методов-insert_many)
 
 
 ## Chapter I
-
-![s21_containers](misc/images/s21_containers.png)
-
-Planet Earth, somewhere between the massive containers of the port, 29 October 1993.
-
-*"Do you really think Bjarne will agree to add this to the standard?"*
-
-*"Sure. Especially since he was already interested in templates a couple of years ago, but then they couldn't get enough reliability of the developing library",* said a middle-aged man wearing a white shirt and an HP Labs nametag that said 'A. Stepanov'.
-
-*"I saw your presentation on generalised programming. The idea is really impressive, but they wanted to release the new standard by the end of the year. It will need a lot of adjustments..."*
-
-*"I think that's exactly what they needed to complete the new standard. Especially, as you said, the idea is impressive. But it does need some adjustments. In order to be fully confident of the success of the presentation, we need to give some examples of how the approach and the templates can be used in general. You are familiar with the structure of single-linked lists, right?"*
-
-*"Yeah, I think I'm starting to get your idea. You want to implement generalized lists as an example? One template class for all types?"*
-
-*"Not only that. Imagine if any container could be described once and then used with different data types and classes. How much time, effort and resources it would save! Lists, maps, sets!"* The walk along the Embarcadero promenade was clearly getting more interesting.
-
-*"Queues and stacks... Damn, that's genius."*
-
-*"Exactly. Who, after such examples, would refuse to add a library to their language standard?"*
-
-*"I'm in. We could even put together a small team of guys who are interested. How much time do we have to implement these examples?"*
-
-*"About two weeks before the presentation meeting in San Jose, then..."*
-
 ### Introduction
 
-As part of the project you need to write your own library that implements the basic standard C++ container classes: `list`, `map`, `queue`, `set`, `stack` and `vector`. Implementations should provide a full set of standard methods and attributes for element handling, container capacity checking and iteration. As a bonus, you can also implement several other container classes from the C++ container library that are not as commonly used, but differ in their implementation details.
+В рамках данного проекта тебе будет предложено написать собственную библиотеку, реализующую основные стандартные контейнерные классы языка С++: `list` (список), `map` (словарь), `queue` (очередь), `set` (множество), `stack` (стек) и `vector` (вектор). Реализации должны предоставлять весь набор стандартных методов и атрибутов для работы с элементами, проверкой заполненности контейнера и итерирования. В качестве дополнительного задания предлагается реализовать еще несколько не так часто используемых, но отличающихся деталями реализации контейнерных классов из контейнерной библиотеки C++.
 
 
 ## Chapter II
 
 ### Information
 
-For most people, the word "container" is self-explanatory and comes from the English word "contain". The same is true in programming: containers are used to contain sets of objects of the same type, i.e. elements. However, there are a huge number of container classes. This is because container classes differ in the organisation of the stored object sets and in the methods provided to interact with them. For example, lists (`list`) store any object, while sets (`set`) store only some unique objects.
+Для большинства людей слово «контейнер» интуитивно понятно и происходит из англоязычного слова contain — «хранить». Так и в программировании: контейнеры используются для хранения наборов объектов одного типа — элементов. Однако контейнерных классов огромное количество. Это связано с тем, что контейнерные классы различаются организацией хранимых наборов объектов и предоставляемыми методами, для взаимодействия с ними. Так, например, списки (`list`) хранят любые объекты, а множества (`set`) — только уникальные. 
 
-The need to separate containers, rather than using the same container for different tasks, is not only due to obvious functional differences. In some cases it is more efficient to use lists, e.g. if the task at hand requires frequent insertion of elements in the middle of the container, but if new elements are only added at the end, it is better to use a queue.
+Сама необходимость разделять контейнеры, а не использовать для решения различных задач один и тот же, восходит не только к очевидным функциональным различиям. В некоторых случаях эффективнее оказывается использовать списки, например, когда в ходе решения поставленной задачи необходимо часто вставлять элементы в середину контейнера, а если добавление новых элементов производится только в конец, целесообразно использовать очередь.
 
-Each type of containers should provide the user with the following methods:
+Каждый вид контейнеров должен предоставить пользователю следующие методы:
 
-- standard constructors (default constructor, copy constructor, move constructor, constructor with initialization list, see materials);
+- стандартные конструкторы (конструктор по умолчанию, конструктор копирования, конструктор перемещения, конструктор со списком инициализации, см. «materials»);
 
-- methods for accessing container elements (e.g. accessing an element with the index i);
+- методы доступа к элементам контейнера (например, осуществление доступа к элементу с индексом i);
 
-- methods for checking if a container is full (e.g. the number of elements in the container, check if the container is empty);
+- методы проверки наполненности контейнера (например, количество элементов в контейнере, проверка на пустоту контейнера);
 
-- methods for changing the container (removing and adding new elements, cleaning the container);
+- методы изменения контейнера (удаление и добавление новых элементов, очистка контейнера);
 
-- methods for dealing with the container iterator.
+- методы для работы с итератором контейнера.
 
-Iterators provide access to container elements. The specific type of iterator will be different for each container. This is due to the different way of organising object sets in container classes, as well as the actual implementation of the container. Iterators are implemented to work in a similar way to a pointer to an array element in C. So this approach to iterators allows you to interact with any container in the same way. Containers provide iterators via the `begin()` and `end()` methods, which point to the first and next after last elements of the container respectively.
+Итераторы обеспечивают доступ к элементам контейнера. Для каждого контейнера конкретный тип итератора будет отличаться. Это связано с различным видом организации наборов объектов в контейнерных классах, а также с фактической реализацией контейнера. Итераторы реализуются в таком виде, чтобы они работали схожим образом с указателем на элемент массива языка С. Именно такой подход через использование итераторов и позволяет взаимодействовать с любыми контейнерами одинаковым образом. Через методы `begin()` и `end()` контейнеры предоставляют итераторы, которые указывают на первый и следующий после последнего элементы контейнера соответственно.
 
-Iterator `iter` has the following operations:
+Над итератором `iter` определены следующие операции:
 
-- `*iter`: gets the element pointed to by the iterator;
+- `*iter`: получение элемента, на который указывает итератор;
 
-- `++iter`: moves the iterator forward to the next element;
+- `++iter`: перемещение итератора вперед для обращения к следующему элементу;
 
-- `--iter`: moves the iterator backwards to the previous element;
+- `--iter`: перемещение итератора назад для обращения к предыдущему элементу;
 
-- `iter1 == iter2`: two iterators are equal if they point to the same element;
+- `iter1 == iter2`: два итератора равны, если они указывают на один и тот же элемент;
 
-- `iter1 != iter2`: two iterators are not equal if they point to different elements.
+- `iter1 != iter2`: два итератора не равны, если они указывают на разные элементы.
 
-In addition to the special organisation of objects and the provision of the necessary methods, the implementation of container classes requires the templating of objects.
+Помимо особой организации объектов и предоставления необходимых методов, реализация контейнерных классов требует шаблонизации объектов. 
 
-Template classes or class templates are used when you want to create a class that depends on additional external parameters, which can be other classes or data types. For example, if you need to create a list class, you don't want to have to rewrite the list implementation for all possible element types. It would be nice to write one class with one parameter and get several specific list classes at once (character, integer, floating-point, user-defined type lists, etc.).
-In C++, containers are part of the Standard Template Library (STL) for this very reason, along with iterators and some algorithms.
+Шаблонные классы или шаблоны классов используются, когда необходимо создать класс, зависящий от дополнительных внешних параметров, которые могут быть другими классами или типами данных. Например, если необходимо создать класс списка, то есть потребность в избежании переписывания реализации списка для всех возможных типов элементов. Конечно, удобнее, написав один класс с параметром, получить сразу несколько конкретных классов списка (списки символов, целых чисел, вещественных, пользовательских типов и т. д.). В C++ контейнеры, вместе с итераторами и некоторыми алгоритмами, входят в стандартную библиотеку шаблонов (STL) именно по этой причине.
 
-There are two main types of containers: sequence and associative containers. To find an element in sequence containers (`list`, `vector`, `array`, `stack`, `queue`), you have to look through the container one by one, while in associative containers (`map`, `set`, `multiset`) you just need to look through the key associated with the value.
+Контейнеры подразделяются на два основных типа: последовательные и ассоциативные. Для нахождения элемента в последовательных контейнерах (`list`, `vector`, `array`, `stack`, `queue`) необходимо последовательно просмотреть весь контейнер, в то время как в ассоциативных (`map`, `set`, `multiset`) достаточно обратиться по ассоциированному с значением ключу.
 
 
 ## Chapter III
 
-- The program must be developed in C++ language of C++17 standard using gcc compiler;
-- The program code must be located in the src folder;
-- When writing code it is necessary to follow the Google style;
-- Make sure to use iterators;
-- Classes must be template;
-- Classes must be implemented within the `s21` namespace;
-- Prepare full coverage of container classes methods with unit-tests using the GTest library;
-- Copying of the Standard Template Library (STL) implementation is not allowed;
-- The logic of the Standard Template Library (STL) must be followed (in terms of checks, memory handling and behaviour in abnormal situations).
+- Программа должна быть разработана на языке C++ стандарта C++17 с использованием компилятора gcc.
+- Код программы должен находиться в папке src.
+- При написании кода необходимо придерживаться Google Style.
+- Обязательно используй итераторы.
+- Классы обязательно должны быть шаблонными.
+- Классы должны быть реализованы внутри пространства имен `s21`.
+- Подготовь полное покрытие unit-тестами методов контейнерных классов c помощью библиотеки GTest.
+- Запрещено копирование реализации стандартной библиотеки шаблонов (STL).
+- Необходимо соблюсти логику работы стандартной библиотеки шаблонов (STL) (в части проверок, работы с памятью и поведения в нештатных ситуациях).
 
-### Part 1. Implementation of the s21_containers.h library
+### Part 1. Реализация библиотеки s21_containers.h
 
-You need to implement the `s21_containers.h` library classes (specifications are given in the relevant material sections, see **"Main containers"**). \
-List of classes: `list`, `map`, `queue`, `set`, `stack`, `vector`.
-- Make it as a header file `s21_containers.h` which includes different header files with implementations of the specified containers (`s21_list.h`, `s21_map.h` and etc.); 
-- Provide a Makefile for testing the library (with targets clean, test);
-- The classical implementation of containers should be considered as a basis, but the final choice of implementations remains free. Except for the list — it should be implemented via the list structure rather than the array.
+Тебе необходимо реализовать классы библиотеки `s21_containers.h` (спецификации указаны в соответствующих разделах материалов, см. пункт **«Основные контейнеры»**). \
+Список классов: `list` (список), `map` (словарь), `queue` (очередь), `set` (множество), `stack` (стек), `vector` (вектор).
+- Оформи решение в виде заголовочного файла `s21_containers.h`, который включает в себя другие заголовочные файлы с реализациями необходимых контейнеров (`s21_list.h`, `s21_map.h` и т. д.).
+- Предусмотри Makefile для тестов написанной библиотеки (с целями clean, test).
+- За основу лучше всего взять классическую реализацию контейнеров, но конечный выбор реализаций остается свободным. За исключением списка — его необходимо реализовывать через структуру списка, а не через массив.
 
-*Tip*: You can move the same implementation of container methods to base classes. For example, for a queue and a stack, or for a list and a vector. There is a UML diagram of the STL library in materials as *one possible example* of hierarchical construction. However, your implementation does not have to be strictly tied to this UML diagram.
+*Подсказка*: Ты можешь выделять в базовые классы одинаковую реализацию методов контейнеров. Например, для очереди и стека или для списка и вектора. В качестве *одного из возможных примеров* иерархического построения в материалах представлена UML-диаграмма библиотеки STL. Однако твоя реализация не обязана быть строго привязана к этой UML-диаграмме.
 
-### Part 2. Bonus. Implementation of the s21_containersplus.h library.
+### Part 2. Дополнительно. Реализация библиотеки s21_containersplus.h
 
-You need to implement the `s21_containersplus.h` library functions (see **"Additional containers"** for specifications). \
-List of classes to be implemented additionally: `array`, `multiset`.
-- Make it as a header file `s21_containersplus.h` which includes different header files with implementations of the specified containers (`s21_array.h`, `s21_multiset.h`); 
-- Provide a Makefile for testing the library (with targets clean, test);
-- The classical implementation of containers should be considered as a basis, but the final choice of the algorithm remains free.
+Тебе необходимо реализовать функции библиотеки `s21_containersplus.h` (спецификации указаны в соответствующих разделах материалов, см. пункт **«Дополнительные контейнеры»**). \
+Список классов, которые нужно реализовать дополнительно: `array` (массив), `multiset` (мультимножество).
+- Оформи решение в виде заголовочного файла `s21_containersplus.h`, который включает в себя другие заголовочные файлы с реализациями необходимых контейнеров (`s21_array.h`, `s21_multiset.h`).
+- Предусмотри Makefile для тестов написанной библиотеки (с целями clean, test).
+- За основу лучше всего взять классическую реализацию контейнеров, но конечный выбор алгоритма остается свободным.
 
-### Part 3. Bonus. Implementation of the `insert_many` method.
+### Part 3. Дополнительно. Реализация методов `insert_many`
 
-You need to complete the classes with the appropriate methods, according to the table:
+Тебе необходимо дополнить классы соответствующими методами согласно таблице:
 
 | Modifiers      | Definition                                      | Containers |
 |----------------|-------------------------------------------------| -------------------------------------------|
@@ -133,8 +102,8 @@ You need to complete the classes with the appropriate methods, according to the 
 | `void insert_many_front(Args&&... args)`          | Appends new elements to the top of the container.  | List. |
 | `vector<std::pair<iterator,bool>> insert_many(Args&&... args)`          | Inserts new elements into the container.  | Map, Set, Multiset. |
 
-Note: the arguments are the already created elements of the appropriate container that should be inserted into this container.
+Обрати внимание, что в качестве аргументов передаются уже созданные элементы соответствующего контейнера, которые необходимо вставить в этот контейнер.
 
-*Tip 1*: Notice that each of these methods uses an Args&&... args — Parameter pack construct. This construct allows a variable number of parameters to be passed to a function or method. So, when calling a method defined as `iterator insert_many(const_iterator pos, Args&&... args)`, you can write either `insert_many(pos, arg1, arg2)` or `insert_many(pos, arg1, arg2, arg3)`.
+*Подсказка 1*: Учитывай, что каждый из этих методов использует конструкцию Args&&... args — Parameter pack. Эта конструкция позволяет передавать переменное число параметров в функцию или метод. То есть при вызове метода, определенного как `iterator insert_many(const_iterator pos, Args&&... args)`, можно написать как `insert_many(pos, arg1, arg2)`, так и `insert_many(pos, arg1, arg2, arg3)`.
 
-*Tip 2*: Remember to test methods for different cases, including boundary ones.
+*Подсказка 2*: Не забудь протестировать методы для различных случаев, включая краевые.
