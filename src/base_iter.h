@@ -2,27 +2,16 @@
 #define BASE_ITER_H_
 #include <cstddef>
 namespace s21 {
-// template<bool B, class T = void>
-//     struct enable_if {};
-// template<class T>
-//     struct enable_if<true, T> { typedef T type; };
-// template < typename A, typename B >
-// struct is_same
-// {
-//     static const bool value = false;
-// };
-// template < typename A >
-// struct is_same<A, A>
-// {
-//     static const bool value = true;
-// };
-
 template <typename T, template <typename> class childIter>
 class BaseIter {
+  friend class childIter<T>;
+
  public:
   using reference = T &;
   using const_reference = const T &;
   using iterator_ptr = T *;
+  operator childIter<T>() { return this->ptr; }
+
   BaseIter(){
       // init(this->ptr);
   };
@@ -33,27 +22,21 @@ class BaseIter {
     return this->ptr;
   }
   // Post-increment. "int" is a dummy signal that is a postfix operator.
-  bool operator++(int) {
+  BaseIter operator++(int) {
     this->ptr++;
     return this->ptr;
   }
-  virtual bool operator==(iterator_ptr ptr) noexcept {
-    return this->ptr == ptr;
-  }
-  virtual bool operator!=(iterator_ptr ptr) { return this->ptr != ptr; }
-  virtual bool operator==(childIter<T> &other) noexcept {
+  bool operator==(iterator_ptr ptr) noexcept { return this->ptr == ptr; }
+  bool operator!=(iterator_ptr ptr) { return this->ptr != ptr; }
+  bool operator==(childIter<T> &other) noexcept {
     return this->ptr == other.ptr;
   }
-  virtual bool operator!=(childIter<T> &other) {
-    return this->ptr != other.ptr;
-  }
-  virtual bool operator==(const childIter<T> &other) noexcept {
+  bool operator!=(childIter<T> &other) { return this->ptr != other.ptr; }
+  bool operator==(const childIter<T> &other) noexcept {
     return this->ptr == other.ptr;
   }
-  virtual bool operator!=(const childIter<T> &other) {
-    return this->ptr != other.ptr;
-  }
-  virtual reference operator*() { return *this->ptr; }
+  bool operator!=(const childIter<T> &other) { return this->ptr != other.ptr; }
+  reference operator*() { return *this->ptr; }
   childIter<T> operator=(childIter<T> *other) {
     this->ptr = other->ptr;
     return *this;

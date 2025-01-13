@@ -151,3 +151,20 @@ TEST(SetInsertTest, Test16_merge) {
   }
   EXPECT_EQ(s1.size(), 5);
 }
+
+TEST(SetInsertTest, Test17_UniqueInsertions) {
+  s21::set<int> mySet;
+
+  mySet.insert_many(2, 3, 4);
+
+  EXPECT_EQ(mySet.size(), 3);
+}
+TEST(SetInsertManyTest, TestUniqueInsertions) {
+  s21::set<int> mySet;
+  auto results = mySet.insert_many(10, 20, 30);
+  EXPECT_EQ(mySet.size(), 3);
+  EXPECT_EQ(results.size(), 3);
+  EXPECT_TRUE(results[0].second);
+  EXPECT_TRUE(results[1].second);
+  EXPECT_TRUE(results[2].second);
+}

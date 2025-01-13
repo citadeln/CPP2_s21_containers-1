@@ -7,6 +7,8 @@
 #include <limits>
 #include <stdexcept>
 
+#include "s21_vector.h"
+
 namespace s21 {
 
 template <typename T, typename Compare = std::less<T>>
@@ -18,7 +20,7 @@ class set {
   using const_reference = const value_type&;
   using size_type = std::size_t;
 
- private:
+ protected:
   struct Node {
     T value;
     Node* left;
@@ -32,6 +34,7 @@ class set {
   Node* root_;
   size_t size_;
   Compare comp_;
+  Node* it;
 
   Node* insertNode(Node* node, const T& value);
   void clearNode(Node* node);
@@ -43,9 +46,12 @@ class set {
   set() : root_(nullptr), size_(0), comp_(Compare()) {}
   set(std::initializer_list<T> init);
   ~set();
+
+ private:
   set& operator=(set&& s) noexcept;
 
-  bool insert(const T& value);
+ public:
+  virtual bool insert(const T& value);
   bool contains(const T& value) const;
   size_t size() const { return size_; }
   bool empty() const { return size() == 0; }
@@ -58,15 +64,16 @@ class set {
   class iterator {
     friend class set;
 
-   private:
+   protected:
     Node* node_;
 
    public:
     explicit iterator(Node* node = nullptr) : node_(node) {}
-    Node* getNode() const { return node_; }  // Метод для доступа к node_
+    Node* getNode() const { return node_; }
 
     const T& operator*() const { return node_->value; }
     iterator& operator++();
+    iterator& operator--();
     bool operator!=(const iterator& other) const {
       return node_ != other.node_;
     }
@@ -77,6 +84,19 @@ class set {
 
   iterator begin() const;
   iterator end() const;
+
+  template <typename... Args>
+  s21::vector<std::pair<iterator, bool>> insert_many(Args&&... args) {
+    s21::vector<std::pair<iterator, bool>> res;
+
+    for (auto arg : {args...}) {
+      bool bl = this->insert(arg);
+
+      std::pair<iterator, bool> p(iterator(this->it), bl);
+      res.push_back(p);
+    }
+    return res;
+  }
 };
 
 }  // namespace s21
@@ -150,16 +170,18 @@ template <typename T, typename Compare>
 typename set<T, Compare>::Node* set<T, Compare>::insertNode(Node* node,
                                                             const T& value) {
   if (!node) {
-    return new Node(value);
+    this->it = new Node(value);
+    return this->it;
   }
+  Node* Child = nullptr;
   if (comp_(value, node->value)) {
-    Node* leftChild = insertNode(node->left, value);
-    node->left = leftChild;
-    leftChild->parent = node;
-  } else if (comp_(node->value, value)) {
-    Node* rightChild = insertNode(node->right, value);
-    node->right = rightChild;
-    rightChild->parent = node;
+    Child = insertNode(node->left, value);
+    node->left = Child;
+    Child->parent = node;
+  } else {
+    Child = insertNode(node->right, value);
+    node->right = Child;
+    Child->parent = node;
   }
   return node;
 }
@@ -222,6 +244,32 @@ typename set<T, Compare>::iterator& set<T, Compare>::iterator::operator++() {
     node_ = parent;
   }
 
+  return *this;
+}
+template <typename T, typename Compare>
+typename set<T, Compare>::iterator& set<T, Compare>::iterator::operator--() {
+  if (!node_) {
+    throw std::out_of_range("Iterator out of range --");
+  }
+  if (node_ == nullptr) return *this;
+
+  // Если у узла есть правый потомок, переходим к максимальному узлу в левом
+  // поддереве правого потомка
+  if (node_->right != nullptr) {
+    node_ = node_->right;
+    while (node_->left != nullptr) {
+      node_ = node_->left;
+    }
+  } else {
+    // Иначе поднимаемся вверх по дереву, пока не найдем узел, который является
+    // правым потомком своего родителя
+    Node* parent = node_->parent;
+    while (parent != nullptr && node_ == parent->left) {
+      node_ = parent;
+      parent = parent->parent;
+    }
+    node_ = parent;
+  }
   return *this;
 }
 
@@ -315,5 +363,36 @@ void s21::set<T, Compare>::merge(set& other) {
   other.clear();
 }
 
+// template <typename T, typename Compare>
+// template <typename... Args>
+// std::vector<std::pair<typename s21::set<T, Compare>::iterator, bool>>
+// s21::set<T, Compare>::insert_many(Args&&... args) {
+//   std::vector<std::pair<iterator, bool>> results;
+//   (results.emplace_back(insert(std::forward<Args>(args))), ...);
+//   return results;
+// }
+
+// template <typename T, typename Compare>
+// template <typename... Args>
+//   s21::vector<std::pair<typename s21::set<T, Compare>::iterator, bool>>
+//   s21::set<T, Compare>::insert_many(
+//       Args&&... args) {
+//     s21::vector<std::pair<typename s21::set<T, Compare>::iterator, bool>>
+//     res;
+
+//     for (auto arg : {args...}) {
+//       bool bl = this->insert(arg);
+
+//       std::pair<typename s21::set<T>::iterator, bool> p(
+//           typename s21::set<T>::iterator(this->it), bl);
+//       res.push_back(p);
+//       // vector<std::pair<typename s21::multiset<T>::iterator,bool>> res =
+//       {p};
+
+//       // return res;
+//       // r = res;
+//     }
+//     return res;
+//   }
 }  // namespace s21
 #endif  // S21_SET_H

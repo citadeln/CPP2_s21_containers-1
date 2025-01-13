@@ -1,6 +1,5 @@
 #ifndef SEQUENCE_CONTAINER_H_
 #define SEQUENCE_CONTAINER_H_
-#include <stdio.h>
 
 #include <initializer_list>
 #include <iostream>
@@ -12,6 +11,11 @@
 namespace s21 {
 template <typename T, template <typename> class IterCont>
 class bsc {
+  friend IterCont<T>;
+
+ public:
+  operator IterCont<T>() { return this->data_; };
+
  protected:
   typedef T value_type;
   using iterator = IterCont<T>;
@@ -57,16 +61,7 @@ class bsc {
     }
     return *this;
   }
-  // bsc& operator=(bsc& other){
-  //     this->data_ = new value_type[other.capacity_];
-  //     this->size_ = other.size_;
-  //     this->capacity_ = other.capacity_;
-  //     for (size_type i = 0; i < this->size_; i++){
-  //         this->data_[i] = other->data_[i];
-  //     }
-  //     return *this;
 
-  // }
   ~bsc() {
     delete[] this->data_;
     this->data_ = nullptr;
@@ -93,22 +88,7 @@ class bsc {
     return status;
   }
   bool operator!=(const bsc& other) const { return !(*this == other); }
-  // vector
-
-  // vector
-
-  // vector
-
-  // JUNK ======================
-  // TODO: DELETE
-  // bsc(size_type, value_type & = value_type());
-  // reverse_iterator rbegin();
-  // reverse_iterator rend();
-  // resize(size_type, T);
-  // insert(iterator, size_type, T&);
-  // insert<IT>(iterator, IT, IT); // So rather IT mean iterator type, it could
-  // bu iterator and reverse iterator. erase(iterator, iterator); T& front(); T&
-  // back();
 };
 }  // namespace s21
+
 #endif  // //SEQUENCE_CONTAINER_H_

@@ -2,6 +2,7 @@
 #define S21_ARRAY_H_
 #include "base_iter.h"
 #include "sequence_container.h"
+
 namespace s21 {
 template <typename T>
 class array : public bsc<T, ArrayIterator> {
@@ -67,4 +68,5 @@ class array : public bsc<T, ArrayIterator> {
   ~array() {}
 };
 }  // namespace s21
+
 #endif  // S21_ARRAY_H_

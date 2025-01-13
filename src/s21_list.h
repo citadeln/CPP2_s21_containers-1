@@ -3,6 +3,9 @@
 #include <iostream>
 #include <limits>
 
+#define ADD_BEGIN 0
+#define ADD_END 1
+
 namespace s21 {
 
 template <typename T>
@@ -212,7 +215,7 @@ list<T>::list(size_type n) {
   list_init();
 
   if (n) {
-    for (size_t i = 0; i < n; i++) push_back(0);
+    for (size_t i = 0; i < n; i++) push_back(ADD_BEGIN);
   }
 }
 
@@ -240,6 +243,7 @@ list<T>::list(list &&other) {
 
 template <typename T>
 list<T>::~list() {
+  // clear();
   if (first_) {
     while (first_) {
       node *next = first_->next;
@@ -345,6 +349,8 @@ typename list<T>::size_type list<T>::max_size() const noexcept {
 template <typename T>
 void list<T>::clear() noexcept {
   this->~list();
+  // while (!empty())
+  //   pop_front();
 }
 
 template <typename T>
@@ -386,22 +392,22 @@ void list<T>::erase(iterator pos) {
 
 template <typename T>
 void list<T>::push_back(const_reference value) {
-  push_node(value, 1);
+  push_node(value, ADD_END);
 }
 
 template <typename T>
 void list<T>::pop_back() {
-  delete_node(1);
+  delete_node(ADD_END);
 }
 
 template <typename T>
 void list<T>::push_front(const_reference value) {
-  push_node(value, 0);
+  push_node(value, ADD_BEGIN);
 }
 
 template <typename T>
 void list<T>::pop_front() {
-  delete_node(0);
+  delete_node(ADD_BEGIN);
 }
 
 template <typename T>

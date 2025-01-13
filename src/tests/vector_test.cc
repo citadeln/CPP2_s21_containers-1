@@ -180,3 +180,31 @@ TEST(t_vector, t_assign) {
   vector<int> v{1, 2, 3, 4, 5, 234, 234, 234};
   EXPECT_EQ(v.at(6), 234);
 }
+
+TEST(t_vector, t_insert_many_1) {
+  vector<int> v{1, 2, 3, 4, 5, 234, 234, 234};
+  v.insert_many(v.begin() + 3, 999, 834);
+  EXPECT_EQ(v[3], 999);
+  EXPECT_EQ(v.at(4), 834);
+  EXPECT_EQ(v.at(5), 4);
+}
+TEST(t_vector, t_insert_many_2) {
+  vector<int> v{1, 2, 3, 4, 5, 234, 234, 234};
+  v.insert_many(v.begin(), 999, 834);
+  EXPECT_EQ(v.at(1), 834);
+  EXPECT_EQ(v.at(2), 1);
+}
+
+TEST(t_vector, t_insert_many_back) {
+  vector<int> v{11, 22, 33, 44};
+  v.insert_many_back(555, 666, 777);
+  EXPECT_EQ(v.back(), 777);
+  EXPECT_EQ(v.at(3), 44);
+  EXPECT_EQ(v.at(4), 555);
+  EXPECT_EQ(v.at(5), 666);
+  EXPECT_EQ(v.at(6), 777);
+  v.insert_many_back(8888, 9999);
+  EXPECT_EQ(v.back(), 9999);
+  EXPECT_ANY_THROW(v.at(9));
+  EXPECT_EQ(v.size(), 9);
+}

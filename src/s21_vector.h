@@ -74,7 +74,8 @@ class vector : public bsc<T, VectorIterator> {
     }
   }
   void increase_capacity() {
-    value_type* temp = new value_type[this->capacity_ * 2];
+    size_type quant = ((this->capacity_ * 2) != 0) ? this->capacity_ * 2 : 10;
+    value_type* temp = new value_type[quant];
     for (size_type i = 0; i < this->size_; i++) {
       temp[i] = this->data_[i];
     }
@@ -108,7 +109,8 @@ class vector : public bsc<T, VectorIterator> {
 
   iterator insert(iterator pos, const_reference value) {
     size_type posn = pos - this->begin();
-    if (posn > this->size()) throw std::out_of_range("Out of range");
+    if (posn > this->size())
+      throw std::out_of_range("Out of range in insert function");
     if (this->capacity_ <= this->size_) {
       increase_capacity();
     }
@@ -117,7 +119,7 @@ class vector : public bsc<T, VectorIterator> {
     }
     this->data_[posn] = value;
     this->size_++;
-    return pos;
+    return &this->data_[posn];
   }
   void erase(iterator pos) {
     size_type quant = this->end() - pos;
@@ -143,6 +145,21 @@ class vector : public bsc<T, VectorIterator> {
     delete[] this->data_;
     this->data_ = nullptr;
   }
+  template <typename... Args>
+  iterator insert_many(const_iterator pos, Args&&... args) {
+    for (auto arg : {args...}) {
+      pos = this->insert(pos, arg);
+      pos++;
+    }
+    return pos;
+  }
+  template <typename... Args>
+  void insert_many_back(Args&&... args) {
+    for (auto arg : {args...}) {
+      this->push_back(arg);
+    }
+  }
 };
+
 }  // namespace s21
 #endif  // VECTOR_H_
